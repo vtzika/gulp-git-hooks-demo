@@ -7,6 +7,18 @@ var formValidator = (function () {
 		return true;
 	} 
 
-	return { fieldNotEmpty : fieldNotEmpty }
+	var fieldIsNumber = function (number) {
+		console.log(typeof number);
+
+		if(isNaN(number)) {
+			return false;
+		}
+		return true;
+	}
+
+	return { fieldNotEmpty : fieldNotEmpty,
+			 fieldIsNumber : fieldIsNumber
+	 }
+
 
 }());
