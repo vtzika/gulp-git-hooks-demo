@@ -18,8 +18,7 @@ var jsdoc = require('gulp-jsdoc');
 var jasmine = require('gulp-jasmine');
 var git = require('gulp-git');
 var argv = require('yargs').argv;
-
-
+var jasminerunner = require('gulp-jasmine-phantom');
 
 // Clean
 // Clean out the destination folders
@@ -151,5 +150,18 @@ gulp.task('watch', function() {
     gulp.watch('application/**/*.js', ['scripts']);
 });
 
+// Tests task
+
+
+
+gulp.task('test', function() {
+    return gulp.src('node_modules/jasmine-standalone-2.2.0/SpecRunner.html')
+        .pipe(jasminerunner());
+});
+
 // Default task
 gulp.task('default', ['clean', 'webserver', 'scripts', 'jscs', 'styles', 'image', 'watch', 'regression']);
+
+
+
+
