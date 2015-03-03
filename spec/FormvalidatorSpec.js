@@ -55,7 +55,7 @@ describe ('Formvalidator contains', function () {
     });
 
     // Maximum number of letters
-    describe ('Validation of fields with minimum number of letters limit', function () {
+    describe ('Validation of fields with maximum number of letters limit', function () {
         it ('should be false when there are too much letters', function() {
             var r = formValidator.fieldMaxLet('asdfghjkloiuytresazxcvbnmkl', 25);
             expect(r).toBe(false);
