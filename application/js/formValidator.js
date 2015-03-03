@@ -42,7 +42,7 @@ var formValidator = (function () {
              fieldValidEmail : fieldValidEmail,
              fieldMinLet : fieldMinLet,
              fieldMaxLet : fieldMaxLet
-     }
+     };
 
 
 }());
