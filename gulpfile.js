@@ -16,7 +16,6 @@ var jscs = require('gulp-jscs');
 var del = require('del');
 var jsdoc = require('gulp-jsdoc');
 var jasmine = require('gulp-jasmine');
-var git = require('gulp-git');
 var sjasmine = require('jasmine');
 var karma = require('gulp-karma');
 
@@ -44,7 +43,7 @@ gulp.task('scripts', function() {
 // JSHint
 // It will check the javascripts files for syntax errors
 gulp.task('lint', function() {
-    gulp.src(['application/**/*.js', 'gulpfile.js'])
+    gulp.src(['application/**/*.js', 'gulpfile.js', 'spec/**/*.js'])
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(jshint.reporter('fail'))
@@ -109,18 +108,6 @@ gulp.task('image', function() {
         }));
 });
 
-// Testing
-// It does regression testing
-gulp.task('regression', function() {
-    var regression = gulp.src('spec/**/*.js')
-    .pipe(jasmine())
-    .on('error', function(err) {
-        console.error('Error on Testing!', err.message);
-        //console.log(regression);
-        //test_passing = false;
-    })
-});
-
 // Connect
 // It connects to  a server
 gulp.task('webserver', function() {
@@ -155,5 +142,10 @@ gulp.task('test', function() {
     });
 });
 
+// Precommit task
+// Either run this task by using gulp precommit or add it to your .git/hooks/pre-commit file
+gulp.task('precommit', ['lint', 'jscs', 'test']);
+
+
 // Default task
-gulp.task('default', ['clean', 'webserver', 'scripts', 'jscs', 'styles', 'image', 'watch', 'regression']);
+gulp.task('default', ['clean', 'webserver', 'scripts', 'jscs', 'styles', 'image', 'watch', 'test']);
