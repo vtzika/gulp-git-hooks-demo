@@ -17,7 +17,6 @@ var del = require('del');
 var jsdoc = require('gulp-jsdoc');
 var jasmine = require('gulp-jasmine');
 var git = require('gulp-git');
-var argv = require('yargs').argv;
 var sjasmine = require('jasmine');
 var karma = require('gulp-karma');
 
@@ -58,7 +57,7 @@ gulp.task('lint', function() {
 // JSCS
 // It checks the coding style
 gulp.task('jscs', function() {
-    gulp.src(['application/**/*.js', 'gulpfile.js'])
+    gulp.src(['application/**/*.js', 'gulpfile.js', 'spec/**/*.js'])
         .pipe(jscs('.jscsrc'))
         .pipe(notify({
             title: 'JSCS',
@@ -110,8 +109,6 @@ gulp.task('image', function() {
         }));
 });
 
-var test_passing = true;
-
 // Testing
 // It does regression testing
 gulp.task('regression', function() {
@@ -123,15 +120,6 @@ gulp.task('regression', function() {
         //test_passing = false;
     })
 });
-
-// Git Commit Task
-//
-gulp.task('commit', function(){
-    var commit_message = argv.msg;
-    return gulp.src('application/*')
-    .pipe(git.commit('gulp git test commit', {args: '-a -m ' + commit_message}));
-});
-
 
 // Connect
 // It connects to  a server
@@ -151,22 +139,21 @@ gulp.task('watch', function() {
     gulp.watch('application/**/*.js', ['scripts']);
 });
 
+var testPassing = true;
 
 gulp.task('test', function() {
-  return gulp.src('./foobar')
+    return gulp.src('./foobar')
     .pipe(karma({
-      configFile: 'karma.conf.js',
-      action: 'run'
+        configFile: 'karma.conf.js',
+        action: 'run'
     }))
     .on('error', function(err) {
-      console.log(err);
-      this.emit('end'); //instead of erroring the stream, end it
+        console.log(err);
+        testPassing = false;
+        this.emit('end'); //instead of erroring the stream, end it
+        return false;
     });
 });
 
 // Default task
 gulp.task('default', ['clean', 'webserver', 'scripts', 'jscs', 'styles', 'image', 'watch', 'regression']);
-
-
-
-

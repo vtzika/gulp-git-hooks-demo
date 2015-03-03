@@ -1,24 +1,20 @@
-var formValidator = (function () {
+var formValidator = (function() {
 
-	var fieldNotEmpty = function (field) {
-		if(field==='') {
-			return false;
-		} 
-		return true;
-	} 
+    var fieldNotEmpty = function(field) {
+        if (field === '') {
+            return false;
+        }
+        return true;
+    }
 
-	var fieldIsNumber = function (number) {
-		console.log(typeof number);
+    var fieldIsNumber = function(number) {
+        if (isNaN(number)) {
+            return false;
+        }
+        return true;
+    }
 
-		if(isNaN(number)) {
-			return false;
-		}
-		return true;
-	}
-
-	return { fieldNotEmpty : fieldNotEmpty,
-			 fieldIsNumber : fieldIsNumber
-	 }
-
-
+    return { fieldNotEmpty: fieldNotEmpty,
+             fieldIsNumber: fieldIsNumber
+     }
 }());
