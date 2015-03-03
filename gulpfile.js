@@ -18,6 +18,8 @@ var jscs = require('gulp-jscs');
 var del = require('del');
 var jsdoc = require('gulp-jsdoc');
 var karma = require('gulp-karma');
+var mocha = require('gulp-mocha');
+var cover = require('gulp-coverage');
 
 // Clean
 // Clean out the destination folders
@@ -139,6 +141,18 @@ gulp.task('test', ['jscs'], function(cb) {
         this.emit('end'); //instead of erroring the stream, end it
         return false;
     });
+});
+
+gulp.task('coverage', function () {
+    return gulp.src(['application/**/*.js'], { read: false })
+        .pipe(cover.instrument({
+            pattern: ['spec/**/*.js'],
+            debugDirectory: 'debug'
+        }))
+        .pipe(mocha())
+        .pipe(cover.gather())
+        .pipe(cover.format())
+        .pipe(gulp.dest('reports'))
 });
 
 // Precommit task

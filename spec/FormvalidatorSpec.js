@@ -23,7 +23,7 @@ describe ('Formvalidator contains', function () {
         });
         it ('should be true when the field is a number', function() {
             var r = formValidator.fieldIsNumber(7);
-            expect(r).toBe(false);
+            expect(r).toBe(true);
         });
     });
 
