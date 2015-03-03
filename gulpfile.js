@@ -3,7 +3,7 @@
 // It will import the node packages
 // and it will assign each one in a variable
 var gulp = require('gulp');
-var  uglify = require('gulp-uglify');
+var uglify = require('gulp-uglify');
 var sass = require('gulp-ruby-sass');
 var connect = require('gulp-connect');
 var livereload = require('gulp-livereload');
@@ -49,7 +49,7 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter('fail'))
         .pipe(notify({
             title: 'JSHint',
-            message: 'JSHint Passed. Let it fly!'
+            message: 'JSHint Passed. I never doubted you! Wonderful!'
         }));
 });
 
@@ -60,7 +60,7 @@ gulp.task('jscs', function() {
         .pipe(jscs('.jscsrc'))
         .pipe(notify({
             title: 'JSCS',
-            message: 'Go on Maria… You are the best'
+            message: 'Coding Style checking is Passed. I never doubted you! Wonderful!'
         }));
 });
 
@@ -120,7 +120,6 @@ gulp.task('webserver', function() {
 // Watch Tasks
 // Watches js, html and js files files
 gulp.task('watch', function() {
-    var server = livereload();
     gulp.watch('application/scss/*', ['styles']);
     gulp.watch('application/index.html', ['styles', 'scripts']);
     gulp.watch('application/**/*.js', ['scripts']);

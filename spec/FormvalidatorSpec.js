@@ -1,3 +1,5 @@
+/*global describe, it, formValidator, expect */
+
 // Form
 describe ('Formvalidator contains', function () {
     // Not empty
