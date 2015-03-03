@@ -1,3 +1,5 @@
+
+
 // Form
 describe ('Formvalidator contains', function () {
 	// Not empty
@@ -17,7 +19,7 @@ describe ('Formvalidator contains', function () {
 		it ('should be false when the field is not a number', function() {
 			var r = formValidator.fieldIsNumber('number');
 			expect(r).toBe(false);
-			
+
 		});
 		it ('should be true when the field is a number', function() {
 			var r = formValidator.fieldIsNumber(7);
