@@ -52,4 +52,17 @@ describe ('Formvalidator contains', function () {
         });
     });
 
+    // Maximum number of letters
+    describe ('Validation of fields with minimum number of letters limit', function () {
+        it ('should be false when there are too much letters', function() {
+            var r = formValidator.fieldMaxLet('asdfghjkloiuytresazxcvbnmkl', 25);
+            expect(r).toBe(false);
+
+        });
+        it ('should be true when there are not too much letters', function() {
+            var r = formValidator.fieldMaxLet('abcdf', 25);
+            expect(r).toBe(true);
+        });
+    });
+
 });
