@@ -1,3 +1,5 @@
+/*global require, console */
+
 // It will import the node packages
 // and it will assign each one in a variable
 var gulp = require('gulp');
@@ -15,8 +17,6 @@ var notify = require('gulp-notify');
 var jscs = require('gulp-jscs');
 var del = require('del');
 var jsdoc = require('gulp-jsdoc');
-var jasmine = require('gulp-jasmine');
-var sjasmine = require('jasmine');
 var karma = require('gulp-karma');
 
 // Clean
@@ -60,7 +60,7 @@ gulp.task('jscs', function() {
         .pipe(jscs('.jscsrc'))
         .pipe(notify({
             title: 'JSCS',
-            message: 'JSCS Passed. Let it fly!'
+            message: 'Go on Maria… You are the best'
         }));
 });
 

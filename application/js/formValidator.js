@@ -3,12 +3,12 @@ var formValidator = (function () {
     var fieldNotEmpty = function (field) {
         if(field==='') {
             return false;
-        } 
+        }
         return true;
-    } 
+    }
 
     var fieldIsNumber = function (number) {
-    
+
         if(isNaN(number)) {
             return false;
         }
@@ -21,15 +21,15 @@ var formValidator = (function () {
             return true;
         }
         return false;
-    } 
+    }
 
-    var fieldMinLet = function (letters) {
-        if(letters.length > 2) {
+    var fieldMinLet = function (letters, limit) {
+        if(letters.length > limit) {
             return true;
         }
         return false;
     }
-    
+
     return { fieldNotEmpty : fieldNotEmpty,
              fieldIsNumber : fieldIsNumber,
              fieldValidEmail : fieldValidEmail,

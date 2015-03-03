@@ -17,7 +17,7 @@ describe ('Formvalidator contains', function () {
         it ('should be false when the field is not a number', function() {
             var r = formValidator.fieldIsNumber('number');
             expect(r).toBe(false);
-            
+
         });
         it ('should be true when the field is a number', function() {
             var r = formValidator.fieldIsNumber(7);
@@ -26,13 +26,13 @@ describe ('Formvalidator contains', function () {
     });
 
     // Email signs
-    describe ('Valid email', function () {
-        it ('should be false when the email is not valid', function() {
+    describe ('Validation of email', function () {
+        it ('should return false when the email is not valid', function() {
             var r = formValidator.fieldValidEmail('');
             expect(r).toBe(false);
-            
+
         });
-        it ('should be true when the email is valid', function() {
+        it ('should return true when the email is valid', function() {
             var r = formValidator.fieldValidEmail('email@email.com');
             expect(r).toBe(true);
         });
@@ -40,14 +40,14 @@ describe ('Formvalidator contains', function () {
 
 
     // Minimum number of letters
-    describe ('Minimum number of letters', function () {
+    describe ('Validation of fields with minimum number of letters limit', function () {
         it ('should be false when there are not enough letters', function() {
-            var r = formValidator.fieldMinLet('a');
+            var r = formValidator.fieldMinLet('a', 2);
             expect(r).toBe(false);
-            
+
         });
         it ('should be true when there are enough letters', function() {
-            var r = formValidator.fieldMinLet('abc');
+            var r = formValidator.fieldMinLet('abc', 2);
             expect(r).toBe(true);
         });
     });
