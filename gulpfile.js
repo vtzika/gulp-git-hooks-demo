@@ -145,6 +145,5 @@ gulp.task('test', function() {
 // Either run this task by using gulp precommit or add it to your .git/hooks/pre-commit file
 gulp.task('precommit', ['lint', 'jscs', 'test']);
 
-
 // Default task
 gulp.task('default', ['clean', 'webserver', 'scripts', 'jscs', 'styles', 'image', 'watch', 'test']);
