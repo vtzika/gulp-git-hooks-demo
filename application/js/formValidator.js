@@ -1,6 +1,6 @@
 var formValidator = (function() {
 
-    var fieldNotEmpty = function(field) {
+    var fieldIsNotEmpty = function(field) {
         if (field === '') {
             return false;
         }
@@ -8,14 +8,13 @@ var formValidator = (function() {
     };
 
     var fieldIsNumber = function(number) {
-
         if (isNaN(number)) {
             return false;
         }
         return true;
     };
 
-    var fieldValidEmail = function(email) {
+    var fieldIsValidEmail = function(email) {
         var emailRegEx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (emailRegEx.test(email)) {
             return true;
@@ -23,8 +22,7 @@ var formValidator = (function() {
         return false;
     };
 
-    var fieldMinLet = function(field, limit) {
-
+    var fieldHasMinLen = function(field, limit) {
         if (!isNaN(field)) {
             field = field.toString();
         }
@@ -34,7 +32,7 @@ var formValidator = (function() {
         return false;
     };
 
-    var fieldMaxLet = function(field, limit) {
+    var fieldHasMaxLen = function(field, limit) {
         if (!isNaN(field)) {
             field = field.toString();
         }
@@ -45,11 +43,30 @@ var formValidator = (function() {
         return false;
     };
 
-    return { fieldNotEmpty: fieldNotEmpty,
+    var showErrors = function(field, validator) {
+        if (validator) {
+            return false;
+        }
+        return true;
+    };
+
+    var liveValidation = function(field, keyPress) {
+        keyPress = function() {
+            field.addEventListener('keyup', validator);
+        };
+        if (keyPress) {
+            return true;
+        }
+        return false;
+    };
+
+    return { fieldIsNotEmpty: fieldIsNotEmpty,
              fieldIsNumber: fieldIsNumber,
-             fieldValidEmail: fieldValidEmail,
-             fieldMinLet: fieldMinLet,
-             fieldMaxLet: fieldMaxLet
+             fieldIsValidEmail: fieldIsValidEmail,
+             fieldHasMinLen: fieldHasMinLen,
+             fieldHasMaxLen: fieldHasMaxLen,
+             showErrors: showErrors,
+             liveValidation: liveValidation
     };
 
 }());

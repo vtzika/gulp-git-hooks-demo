@@ -5,11 +5,11 @@ describe ('Formvalidator contains', function() {
     // Not empty
     describe ('Required field', function() {
         it ('should be false when the field is empty', function() {
-            var r = formValidator.fieldNotEmpty('');
+            var r = formValidator.fieldIsNotEmpty('');
             expect(r).toBe(false);
         });
         it ('should be true when the field is not empty', function() {
-            var r = formValidator.fieldNotEmpty('field');
+            var r = formValidator.fieldIsNotEmpty('field');
             expect(r).toBe(true);
         });
     });
@@ -30,12 +30,12 @@ describe ('Formvalidator contains', function() {
     // Email signs
     describe ('Validation of email', function() {
         it ('should return false when the email is not valid', function() {
-            var r = formValidator.fieldValidEmail('');
+            var r = formValidator.fieldIsValidEmail('');
             expect(r).toBe(false);
 
         });
         it ('should return true when the email is valid', function() {
-            var r = formValidator.fieldValidEmail('email@email.com');
+            var r = formValidator.fieldIsValidEmail('email@email.com');
             expect(r).toBe(true);
         });
     });
@@ -43,16 +43,15 @@ describe ('Formvalidator contains', function() {
     // Minimum number of letters
     describe ('Validation of fields with minimum number of letters limit', function() {
         it ('should be false when there are not enough letters', function() {
-            var r = formValidator.fieldMinLet('a', 2);
+            var r = formValidator.fieldHasMinLen('a', 2);
             expect(r).toBe(false);
-
         });
         it ('should be true when there are enough letters', function() {
-            var r = formValidator.fieldMinLet('abc', 2);
+            var r = formValidator.fieldHasMinLen('abc', 2);
             expect(r).toBe(true);
         });
         it ('should be true when there are enough numbers', function() {
-            var r = formValidator.fieldMaxLet(12345678, 8);
+            var r = formValidator.fieldHasMinLen(12345678, 8);
             expect(r).toBe(true);
         });
     });
@@ -60,18 +59,40 @@ describe ('Formvalidator contains', function() {
     // Maximum number of letters
     describe ('Validation of fields with maximum number of letters limit', function() {
         it ('should be false when there are too much letters', function() {
-            var r = formValidator.fieldMaxLet('asdfghjkloiuytresazxcvbnmkl', 25);
+            var r = formValidator.fieldHasMaxLen('asdfghjkloiuytresazxcvbnmkl', 25);
             expect(r).toBe(false);
-
         });
         it ('should be true when there are not more letters than the limit', function() {
-            var r = formValidator.fieldMaxLet('abcdf', 25);
+            var r = formValidator.fieldHasMaxLen('abcdf', 25);
             expect(r).toBe(true);
         });
         it ('should be true when there are not more numbers than the limit', function() {
-            var r = formValidator.fieldMaxLet(123456, 25);
+            var r = formValidator.fieldHasMaxLen(123456, 25);
             expect(r).toBe(true);
         });
     });
 
+    //Show errors
+    describe ('Show errors', function() {
+        it ('should be false when there are not errors', function() {
+            var r = formValidator.showErrors('', 'fieldNotEmpty');
+            expect(r).toBe(false);
+        });
+        it ('should be true when there are errors', function() {
+            var r = formValidator.showErrors('field', !'fieldNotEmpty');
+            expect(r).toBe(true);
+        });
+    });
+
+    //Live validation
+    describe ('Do the live validation', function() {
+        it ('should be true when the keys are pressed', function() {
+            var r = formValidator.liveValidation('field', 'keyPress');
+            expect(r).toBe(true);
+        });
+        it ('should be false when the keys are not pressed', function() {
+            var r = formValidator.liveValidation('field', !'keyPress');
+            expect(r).toBe(false);
+        });
+    });
 });

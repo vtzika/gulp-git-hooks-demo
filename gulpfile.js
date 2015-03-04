@@ -143,7 +143,7 @@ gulp.task('test', ['jscs'], function(cb) {
     });
 });
 
-gulp.task('coverage', function () {
+gulp.task('coverage', function() {
     return gulp.src(['application/**/*.js'], { read: false })
         .pipe(cover.instrument({
             pattern: ['spec/**/*.js'],
@@ -152,7 +152,7 @@ gulp.task('coverage', function () {
         .pipe(mocha())
         .pipe(cover.gather())
         .pipe(cover.format())
-        .pipe(gulp.dest('reports'))
+        .pipe(gulp.dest('reports'));
 });
 
 // Precommit task
