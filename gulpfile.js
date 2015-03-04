@@ -18,6 +18,8 @@ var jscs = require('gulp-jscs');
 var del = require('del');
 var jsdoc = require('gulp-jsdoc');
 var karma = require('gulp-karma');
+var mocha = require('gulp-mocha');
+var cover = require('gulp-coverage');
 
 // Clean
 // Clean out the destination folders
@@ -55,7 +57,7 @@ gulp.task('lint', function() {
 
 // JSCS
 // It checks the coding style
-gulp.task('jscs', function() {
+gulp.task('jscs', ['lint'], function() {
     gulp.src(['application/**/*.js', 'gulpfile.js', 'spec/**/*.js'])
         .pipe(jscs('.jscsrc'))
         .pipe(notify({
@@ -127,7 +129,7 @@ gulp.task('watch', function() {
 
 var testPassing = true;
 
-gulp.task('test', function() {
+gulp.task('test', ['jscs'], function(cb) {
     return gulp.src('./foobar')
     .pipe(karma({
         configFile: 'karma.conf.js',
@@ -139,6 +141,18 @@ gulp.task('test', function() {
         this.emit('end'); //instead of erroring the stream, end it
         return false;
     });
+});
+
+gulp.task('coverage', function () {
+    return gulp.src(['application/**/*.js'], { read: false })
+        .pipe(cover.instrument({
+            pattern: ['spec/**/*.js'],
+            debugDirectory: 'debug'
+        }))
+        .pipe(mocha())
+        .pipe(cover.gather())
+        .pipe(cover.format())
+        .pipe(gulp.dest('reports'))
 });
 
 // Precommit task
