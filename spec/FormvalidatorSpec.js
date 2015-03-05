@@ -74,31 +74,36 @@ describe ('Formvalidator contains', function() {
 
     //Show errors
     describe ('Show error', function() {
-        it ('should be empty when the field is not empty and required', function() {
-            var r = formValidator.showError('name', 'value', 'fieldIsNotEmpty');
-            expect(r).toBe('');
+        describe ('Error messages for fields that are required', function() {
+            it ('should be empty when the field is not empty and required', function() {
+                var r = formValidator.showError('name', 'value', 'fieldIsNotEmpty');
+                expect(r).toBe('');
+            });
+            it ('should be field is empty when the field is empty and required', function() {
+                var r = formValidator.showError('name', '', 'fieldIsNotEmpty');
+                expect(r).toBe('Name is empty.');
+            });
         });
-        it ('should be field is empty when the field is empty and required', function() {
-            var r = formValidator.showError('name', '', 'fieldIsNotEmpty');
-            expect(r).toBe('Name is empty.');
+        describe ('Error messages for fields that must have numeric values', function() {
+            it ('should be empty when the field is a number and it is required to be a number', function() {
+                var r = formValidator.showError('name', '6757647', 'fieldIsNumber');
+                expect(r).toBe('');
+            });
+            it ('should be field is not a number when the field must be a number', function() {
+                var r = formValidator.showError('phone', 'NaN value', 'fieldIsNumber');
+                expect(r).toBe('Phone is not a number.');
+            });
         });
-        //
-        it ('should be empty when the field is a number and it is required to be a number', function() {
-            var r = formValidator.showError('name', '6757647', 'fieldIsNumber');
-            expect(r).toBe('');
-        });
-        it ('should be field is not a number when the field must be a number', function() {
-            var r = formValidator.showError('phone', 'NaN value', 'fieldIsNumber');
-            expect(r).toBe('Phone is not a number.');
-        });
-        //fieldIsValidEmail
-        it ('should be empty when the field is a a valid email', function() {
-            var r = formValidator.showError('name', 'test@live.com', 'fieldIsValidEmail');
-            expect(r).toBe('');
-        });
-        it ('should be field is not a valid email when the email is not valid', function() {
-            var r = formValidator.showError('email', 'not an email', 'fieldIsValidEmail');
-            expect(r).toBe('Email is not a valid.');
+        describe ('Error messages for fields that must be valid emails', function() {
+            //fieldIsValidEmail
+            it ('should be empty when the field is a a valid email', function() {
+                var r = formValidator.showError('name', 'test@live.com', 'fieldIsValidEmail');
+                expect(r).toBe('');
+            });
+            it ('should be field is not a valid email when the email is not valid', function() {
+                var r = formValidator.showError('email', 'not an email', 'fieldIsValidEmail');
+                expect(r).toBe('Email is not a valid.');
+            });
         });
     });
 
