@@ -73,7 +73,7 @@ describe ('Formvalidator contains', function() {
     });
 
     //Show errors
-    xdescribe ('Show errors', function() {
+    describe ('Show errors', function() {
         it ('should be false when there are not errors', function() {
             var r = formValidator.showErrors('', 'fieldNotEmpty');
             expect(r).toBe(false);
@@ -85,7 +85,7 @@ describe ('Formvalidator contains', function() {
     });
 
     //Live validation
-    xdescribe ('Do the live validation', function() {
+    describe ('Do the live validation', function() {
         it ('should be true when the keys are pressed', function() {
             var r = formValidator.liveValidation('field', 'keyPress');
             expect(r).toBe(true);
