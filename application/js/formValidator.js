@@ -53,11 +53,7 @@ var formValidator = (function() {
         if (validation) {
             return '';
         }
-<<<<<<< HEAD
-        return 'ERROR';
-=======
         return field.charAt(0).toUpperCase() + field.slice(1) + errorMsgMapping[validator];
->>>>>>> aa47ea7d5f208366872482b0e8aa8351f34348a3
     };
 
     var liveValidation = function(field, keyPress) {
