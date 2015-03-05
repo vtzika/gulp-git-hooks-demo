@@ -47,7 +47,7 @@ var formValidator = (function() {
         if (validatorMapping[validator](value)) {
             return '';
         }
-        return field + errorMsgMapping[validator];
+        return field.charAt(0).toUpperCase() + field.slice(1) + errorMsgMapping[validator];
     };
 
     var liveValidation = function(field, keyPress) {

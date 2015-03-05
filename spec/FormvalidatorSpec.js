@@ -76,7 +76,7 @@ describe ('Formvalidator contains', function() {
     describe ('Show error', function() {
         it ('should be empty when there are not errors', function() {
             var r = formValidator.showError('name', '', 'fieldIsNotEmpty');
-            expect(r).toBe('name is empty');
+            expect(r).toBe('Name is empty');
         });
         it ('should be name is empty when the field name is empty', function() {
             var r = formValidator.showError('name', 'value', 'fieldIsNotEmpty');
