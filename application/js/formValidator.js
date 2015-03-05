@@ -43,11 +43,11 @@ var formValidator = (function() {
         return false;
     };
 
-    var showErrors = function(field, validator) {
-        if (validator) {
-            return false;
+    var showError = function(field, value, validator) {
+        if (validatorMapping[validator](value)) {
+            return '';
         }
-        return 'ERROR';
+        return field + errorMsgMapping[validator];
     };
 
     var liveValidation = function(field, keyPress) {
@@ -60,12 +60,19 @@ var formValidator = (function() {
         return false;
     };
 
+    var validatorMapping = {
+        fieldIsNotEmpty: fieldIsNotEmpty
+    };
+    var errorMsgMapping = {
+        fieldIsNotEmpty: ' is empty'
+    };
+
     return { fieldIsNotEmpty: fieldIsNotEmpty,
              fieldIsNumber: fieldIsNumber,
              fieldIsValidEmail: fieldIsValidEmail,
              fieldHasMinLen: fieldHasMinLen,
              fieldHasMaxLen: fieldHasMaxLen,
-             showErrors: showErrors,
+             showError: showError,
              liveValidation: liveValidation
     };
 

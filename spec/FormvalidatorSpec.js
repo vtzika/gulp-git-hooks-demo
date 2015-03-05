@@ -73,14 +73,14 @@ describe ('Formvalidator contains', function() {
     });
 
     //Show errors
-    xdescribe ('Show errors', function() {
-        it ('should be false when there are not errors', function() {
-            var r = formValidator.showErrors('', 'fieldNotEmpty');
-            expect(r).toBe(false);
+    describe ('Show error', function() {
+        it ('should be empty when there are not errors', function() {
+            var r = formValidator.showError('name', '', 'fieldIsNotEmpty');
+            expect(r).toBe('name is empty');
         });
-        it ('should be true when there are errors', function() {
-            var r = formValidator.showErrors('field', !'fieldNotEmpty');
-            expect(r).toBe(true);
+        it ('should be name is empty when the field name is empty', function() {
+            var r = formValidator.showError('name', 'value', 'fieldIsNotEmpty');
+            expect(r).toBe('');
         });
     });
 
