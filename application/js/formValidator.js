@@ -61,10 +61,15 @@ var formValidator = (function() {
     };
 
     var validatorMapping = {
-        fieldIsNotEmpty: fieldIsNotEmpty
+        fieldIsNotEmpty: fieldIsNotEmpty,
+        fieldIsNumber: fieldIsNumber,
+        fieldIsValidEmail: fieldIsValidEmail
     };
+
     var errorMsgMapping = {
-        fieldIsNotEmpty: ' is empty'
+        fieldIsNotEmpty: ' is empty.',
+        fieldIsNumber: ' is not a number.',
+        fieldIsValidEmail: ' is not a valid.'
     };
 
     return { fieldIsNotEmpty: fieldIsNotEmpty,
