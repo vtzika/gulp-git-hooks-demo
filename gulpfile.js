@@ -57,7 +57,7 @@ gulp.task('lint', function() {
 
 // JSCS
 // It checks the coding style
-gulp.task('jscs', ['lint'], function() {
+gulp.task('jscs', function() {
     gulp.src(['application/**/*.js', 'gulpfile.js', 'spec/**/*.js'])
         .pipe(jscs('.jscsrc'))
         .pipe(notify({
@@ -129,7 +129,7 @@ gulp.task('watch', function() {
 
 var testPassing = true;
 
-gulp.task('test', ['jscs'], function(cb) {
+gulp.task('test', function(cb) {
     return gulp.src('./foobar')
     .pipe(karma({
         configFile: 'karma.conf.js',
