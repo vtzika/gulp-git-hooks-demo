@@ -138,8 +138,7 @@ gulp.task('test', function(cb) {
     .on('error', function(err) {
         console.log(err);
         testPassing = false;
-        this.emit('end'); //instead of erroring the stream, end it
-        return true;
+        //this.emit('end'); //instead of erroring the stream, end it
     });
 });
 
