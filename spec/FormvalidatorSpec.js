@@ -73,15 +73,61 @@ describe ('Formvalidator contains', function() {
     });
 
     //Show errors
-    xdescribe ('Show errors', function() {
-        it ('should be false when there are not errors', function() {
-            var r = formValidator.showErrors('', 'fieldNotEmpty');
-            expect(r).toBe(false);
+    describe ('Show error', function() {
+        describe ('Error messages for fields that are required', function() {
+            it ('should be empty when the field is not empty and required', function() {
+                var r = formValidator.showError('name', 'value', 'fieldIsNotEmpty');
+                expect(r).toBe('');
+            });
+            it ('should be field is empty when the field is empty and required', function() {
+                var r = formValidator.showError('name', '', 'fieldIsNotEmpty');
+                expect(r).toBe('Name is empty.');
+            });
         });
-        it ('should be true when there are errors', function() {
-            var r = formValidator.showErrors('field', !'fieldNotEmpty');
-            expect(r).toBe(true);
+        describe ('Error messages for fields that must have numeric values', function() {
+            it ('should be empty when the field is a number and it is required to be a number', function() {
+                var r = formValidator.showError('name', '6757647', 'fieldIsNumber');
+                expect(r).toBe('');
+            });
+            it ('should be field is not a number when the field must be a number', function() {
+                var r = formValidator.showError('phone', 'NaN value', 'fieldIsNumber');
+                expect(r).toBe('Phone is not a number.');
+            });
         });
+        describe ('Error messages for fields that must be valid emails', function() {
+            //fieldIsValidEmail
+            it ('should be empty when the field is a valid email', function() {
+                var r = formValidator.showError('name', 'test@live.com', 'fieldIsValidEmail');
+                expect(r).toBe('');
+            });
+            it ('should be field is not a valid email when the email is not valid', function() {
+                var r = formValidator.showError('email', 'not an email', 'fieldIsValidEmail');
+                expect(r).toBe('Email is not a valid.');
+            });
+        });
+        describe ('Error messages for fields that must have minimum length', function() {
+            //fieldIsValidEmail
+            it ('should be empty when the field is big enough', function() {
+                var r = formValidator.showError('name', 'field', 'fieldHasMinLen', 3);
+                expect(r).toBe('');
+            });
+            it ('should be field is not big enough when it is too small', function() {
+                var r = formValidator.showError('name', 'fi', 'fieldHasMinLen', '3');
+                expect(r).toBe('Name is too small.');
+            });
+        });
+        describe ('Error messages for fields that must have maximum length', function() {
+            //fieldIsValidEmail
+            it ('should be empty when the field is smaller that the limit', function() {
+                var r = formValidator.showError('name', 'field', 'fieldHasMaxLen', 6);
+                expect(r).toBe('');
+            });
+            it ('should be field is too big when it is biger than the limit', function() {
+                var r = formValidator.showError('name', 'field', 'fieldHasMaxLen', 4);
+                expect(r).toBe('Name is too big.');
+            });
+        });
+
     });
 
     //Live validation
