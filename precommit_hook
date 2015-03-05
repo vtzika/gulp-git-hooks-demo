@@ -7,9 +7,14 @@
 #
 # To enable this hook, rename this file to "pre-commit".
 
-gulp test
+gulp precommit
 retval=$?
-echo $retval
+
+gulp lint
+retlint=$?
+
+gulp jscs
+retjscs=$?
 
 if [ $retval -ne 0 ]
 then
@@ -17,6 +22,15 @@ then
         exit $retval
 fi
 
+if [ $retlint -ne 0 ]
+then
+        exit 1
+fi
+
+if [ $retjscs -ne 0 ]
+then
+        exit 1
+fi
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
 	against=HEAD

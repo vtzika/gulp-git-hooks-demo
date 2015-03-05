@@ -47,7 +47,7 @@ var formValidator = (function() {
         if (validator) {
             return false;
         }
-        return "ERROR";
+        return 'ERROR';
     };
 
     var liveValidation = function(field, keyPress) {

@@ -127,8 +127,6 @@ gulp.task('watch', function() {
     gulp.watch('application/**/*.js', ['scripts']);
 });
 
-var testPassing = true;
-
 gulp.task('test', function(cb) {
     return gulp.src('./foobar')
     .pipe(karma({
@@ -137,8 +135,6 @@ gulp.task('test', function(cb) {
     }))
     .on('error', function(err) {
         console.log(err);
-        testPassing = false;
-        //this.emit('end'); //instead of erroring the stream, end it
     });
 });
 
