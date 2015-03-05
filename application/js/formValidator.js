@@ -43,8 +43,14 @@ var formValidator = (function() {
         return false;
     };
 
-    var showError = function(field, value, validator) {
-        if (validatorMapping[validator](value)) {
+    var showError = function(field, value, validator, limit) {
+        if (limit > 0) {
+            validation = validatorMapping[validator](value, limit);
+        }
+        else
+            validation = validatorMapping[validator](value);
+
+        if (validation) {
             return '';
         }
         return field.charAt(0).toUpperCase() + field.slice(1) + errorMsgMapping[validator];
@@ -63,13 +69,17 @@ var formValidator = (function() {
     var validatorMapping = {
         fieldIsNotEmpty: fieldIsNotEmpty,
         fieldIsNumber: fieldIsNumber,
-        fieldIsValidEmail: fieldIsValidEmail
+        fieldIsValidEmail: fieldIsValidEmail,
+        fieldHasMinLen: fieldHasMinLen,
+        fieldHasMaxLen: fieldHasMaxLen
     };
 
     var errorMsgMapping = {
         fieldIsNotEmpty: ' is empty.',
         fieldIsNumber: ' is not a number.',
-        fieldIsValidEmail: ' is not a valid.'
+        fieldIsValidEmail: ' is not a valid.',
+        fieldHasMinLen: ' is too small.',
+        fieldHasMaxLen: ' is too big.'
     };
 
     return { fieldIsNotEmpty: fieldIsNotEmpty,

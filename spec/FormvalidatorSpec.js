@@ -96,7 +96,7 @@ describe ('Formvalidator contains', function() {
         });
         describe ('Error messages for fields that must be valid emails', function() {
             //fieldIsValidEmail
-            it ('should be empty when the field is a a valid email', function() {
+            it ('should be empty when the field is a valid email', function() {
                 var r = formValidator.showError('name', 'test@live.com', 'fieldIsValidEmail');
                 expect(r).toBe('');
             });
@@ -105,6 +105,29 @@ describe ('Formvalidator contains', function() {
                 expect(r).toBe('Email is not a valid.');
             });
         });
+        describe ('Error messages for fields that must have minimum length', function() {
+            //fieldIsValidEmail
+            it ('should be empty when the field is big enough', function() {
+                var r = formValidator.showError('name', 'field', 'fieldHasMinLen', 3);
+                expect(r).toBe('');
+            });
+            it ('should be field is not big enough when it is too small', function() {
+                var r = formValidator.showError('name', 'fi', 'fieldHasMinLen', '3');
+                expect(r).toBe('Name is too small.');
+            });
+        });
+        describe ('Error messages for fields that must have maximum length', function() {
+            //fieldIsValidEmail
+            it ('should be empty when the field is smaller that the limit', function() {
+                var r = formValidator.showError('name', 'field', 'fieldHasMaxLen', 6);
+                expect(r).toBe('');
+            });
+            it ('should be field is too big when it is biger than the limit', function() {
+                var r = formValidator.showError('name', 'field', 'fieldHasMaxLen', 4);
+                expect(r).toBe('Name is too big.');
+            });
+        });
+
     });
 
     //Live validation
