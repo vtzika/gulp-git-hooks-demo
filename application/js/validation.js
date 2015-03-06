@@ -1,12 +1,14 @@
+/**
+* This function validate the contact form fields.
+* @param {array} fields - An array with all the form fields.
+*/
 var validate = function(fields) {
-
     for (var i = 0; i < fields.length; i++) {
         var validators = fieldValidatorMapping[fields[i]];
         for (var j = 0; j < validators.length; j++) {
-            console.log(validators[j]);
             var elem = document.contactform[fields[i]];
             errorElement = document.getElementById('error_' + fields[i]);
-            var hasNoError = fieldValidation(fields[i], elem, validators[j], errorElement);
+            var hasNoError = fieldValidation(fields[i], elem.value, validators[j], errorElement);
             if (!hasNoError) {
                 break;
             }
@@ -14,6 +16,10 @@ var validate = function(fields) {
     }
 };
 
+/**
+* Array which maps the field of the contact form with the validators.
+* @type {array}
+*/
 var fieldValidatorMapping = {
         name: ['fieldIsNotEmpty'],
         telephone: ['fieldIsNotEmpty', 'fieldIsNumber'],
@@ -22,19 +28,16 @@ var fieldValidatorMapping = {
         message: ['fieldIsNotEmpty']
     };
 
-var liveValidation = function(field, keyPress) {
-        keyPress = function() {
-            field.addEventListener('keyup', validator);
-        };
-        if (keyPress) {
-            return true;
-        }
-        return false;
-    };
-
-var fieldValidation = function(field, element, validator, errorElement) {
-    var fieldValue = element.value;
-    error = formValidator.showError(field, fieldValue, validator);
+/**
+* This function shows the error when the validation fails.
+* @param {string} field - The name of the contact form field.
+* @param {string | number} value - It's the value of the field.
+* @param {string} validator - It's the field validator.
+* @param {html element} errorElement - It's the paragraph element to expose the errors.
+* @return {boolean} - It's true when there aren't erros and it's false when there are errors.
+*/
+var fieldValidation = function(field, value, validator, errorElement) {
+    error = formValidator.showError(field, value, validator);
     errorElement.innerHTML = error;
 
     if (error === '') {
@@ -42,12 +45,24 @@ var fieldValidation = function(field, element, validator, errorElement) {
     } return false;
 };
 
+/**
+* Click event is added to the submit button.
+* When submit button is clicked the form is validated.
+*/
 document.getElementById('submit').addEventListener('click', function() {
     fields = ['name', 'email', 'telephone', 'subject', 'message'];
     validate(fields);
 });
 
+/**
+* Form elements
+* @type {array} 
+*/
 var formElems = document.contactform.elements;
+
+/**
+* This function runs the validation when the keys are pressed.
+*/
 for (var i = 0; i < formElems.length; i++) {
 
     formElems[i].addEventListener('keyup', function() {
