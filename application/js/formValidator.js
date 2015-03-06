@@ -73,6 +73,14 @@ var formValidator = (function() {
         return false;
     };
 
+    /**
+    * This function returns the error message if exists.
+    * @param {string} field - The value of the field.
+    * @param {value} value - Is the value of the field.
+    * @param {string} validator - Is the validator for the field.
+    * @param {number} limit - The limit of the field's length.
+    * @return {boolean} - When it's true, it return an error and when it's false it returns nothing.
+    */
     var showError = function(field, value, validator, limit) {
         if (limit > 0) {
             validation = validatorMapping[validator](value, limit);
@@ -86,6 +94,10 @@ var formValidator = (function() {
         return field.charAt(0).toUpperCase() + field.slice(1) + errorMsgMapping[validator];
     };
 
+    /**
+    * Object which contains all the validators.
+    * @type {object}
+    */
     var validatorMapping = {
         fieldIsNotEmpty: fieldIsNotEmpty,
         fieldIsNumber: fieldIsNumber,
@@ -94,6 +106,10 @@ var formValidator = (function() {
         fieldHasMaxLen: fieldHasMaxLen
     };
 
+    /**
+    * Object which contains all the different error messages for every specific validator.
+    * @type {object}
+    */
     var errorMsgMapping = {
         fieldIsNotEmpty: ' is empty.',
         fieldIsNumber: ' is not a number.',
