@@ -56,16 +56,6 @@ var formValidator = (function() {
         return field.charAt(0).toUpperCase() + field.slice(1) + errorMsgMapping[validator];
     };
 
-    var liveValidation = function(field, keyPress) {
-        keyPress = function() {
-            field.addEventListener('keyup', validator);
-        };
-        if (keyPress) {
-            return true;
-        }
-        return false;
-    };
-
     var validatorMapping = {
         fieldIsNotEmpty: fieldIsNotEmpty,
         fieldIsNumber: fieldIsNumber,
@@ -82,13 +72,13 @@ var formValidator = (function() {
         fieldHasMaxLen: ' is too big.'
     };
 
-    return { fieldIsNotEmpty: fieldIsNotEmpty,
-             fieldIsNumber: fieldIsNumber,
-             fieldIsValidEmail: fieldIsValidEmail,
-             fieldHasMinLen: fieldHasMinLen,
-             fieldHasMaxLen: fieldHasMaxLen,
-             showError: showError,
-             liveValidation: liveValidation
+    return {
+        fieldIsNotEmpty: fieldIsNotEmpty,
+        fieldIsNumber: fieldIsNumber,
+        fieldIsValidEmail: fieldIsValidEmail,
+        fieldHasMinLen: fieldHasMinLen,
+        fieldHasMaxLen: fieldHasMaxLen,
+        showError: showError
     };
 
 }());
