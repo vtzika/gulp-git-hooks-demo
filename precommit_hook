@@ -7,28 +7,31 @@
 #
 # To enable this hook, rename this file to "pre-commit".
 
-gulp precommit
-retval=$?
+gulp test
+rettestval=$?
 
-gulp lint
-retlint=$?
-
-gulp jscs
-retjscs=$?
-
-if [ $retval -ne 0 ]
+if [ $rettestval -ne 0 ]
 then
-	echo $retval
-        exit $retval
-fi
-
-if [ $retlint -ne 0 ]
-then
+        echo "YOUR TESTS ARE FAILING!!!! PLEASE FIX THEM AND THEN TRY TO COMMIT!!!"
         exit 1
 fi
 
-if [ $retjscs -ne 0 ]
+gulp lint
+retlintval=$?
+
+if [ $retlintval -ne 0 ]
 then
+	echo "JSHINT IS COMPLAINING!!! PLEASE FIX THE WARNINGS AND ERRORS AND THEN COMMIT!!!"
+        exit 1
+fi
+
+
+gulp jscs
+retjscsval=$?
+
+if [ $retjscsval -ne 0 ]
+then
+	echo "YOUR CODING STYLE HAS PROBLEMS!!!! PLEASE FIX THE PROBLEMS AND THEN COMMIT!!!"
         exit 1
 fi
 if git rev-parse --verify HEAD >/dev/null 2>&1
