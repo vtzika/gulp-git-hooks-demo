@@ -1,5 +1,6 @@
     /**
-    * todo
+    * This is a module for form validation.
+    * It contains validators and functions that return the errors which are in the validation.
     */
 var formValidator = (function() {
 
