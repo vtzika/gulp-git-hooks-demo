@@ -10,9 +10,9 @@ This project is consisted of a generic contact form validator, a contact form to
 
 ### Instruction:
 1. npm install -g gulp
-1. git clone https://github.com/vtzika/gulp-git-hooks-demo.git
-2. npm install
-3. gulp (it will run the default task wich is consisted of multiple tasks)
+2. git clone https://github.com/vtzika/gulp-git-hooks-demo.git
+3. npm install
+4. gulp (it will run the default task wich is consisted of multiple tasks)
 
 ### Git Precommit hook
 If you copy the precommit_hook file to your .git/hooks/precommit file, it will run the tests, run the JShint checks and it will check your coding style based on the airbnb JS guidelines before commiting to your repository. If one of those will fail, it will not commit.
