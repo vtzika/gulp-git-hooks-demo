@@ -8,13 +8,9 @@
 ----------------------------------------------------------------------
 This project is consisted of a generic contact form validator, a contact form to show the use of the validator, the jasmine unitests, a gulp build file with multiple tasks, a precommit hook file.
 
-### Requirements:
-- Gulp installed globally
-- node
-- karma installed globally
-
 ### Instruction:
-1. git clone https://github.com/vtzika/formValidator.git
+1. npm install -g gulp
+1. git clone https://github.com/vtzika/gulp-git-hooks-demo.git
 2. npm install
 3. gulp (it will run the default task wich is consisted of multiple tasks)
 
