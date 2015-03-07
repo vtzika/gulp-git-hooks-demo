@@ -56,7 +56,7 @@ document.getElementById('submit').addEventListener('click', function() {
 
 /**
 * Form elements
-* @type {array} 
+* @type {array}
 */
 var formElems = document.contactform.elements;
 
