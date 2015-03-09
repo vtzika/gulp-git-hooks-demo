@@ -1,25 +1,20 @@
 /**
-* This function validate the contact form fields.
+* This function validates the contact form fields.
 * @param {array} fields - An array with all the form fields.
 */
-var validate = function(fields) {
-    for (var i = 0; i < fields.length; i++) {
-        //console.log([1, 2, 3].indexOf(1));
-
-       // console.log(fieldValidatorMapping.indexOf('name'));
-        var validators = fieldValidatorMapping[fields[i]];
-        if (!(fields[i] in fieldValidatorMapping)) {
-            continue;
+var validateField = function(field) {
+        var validators = fieldValidatorMapping[field];
+        if (!(field in fieldValidatorMapping)) {
+            return;
         }
         for (var j = 0; j < validators.length; j++) {
-            var elem = document.contactform[fields[i]];
-            errorElement = document.getElementById('error_' + fields[i]);
-            var hasNoError = fieldValidation(fields[i], elem.value, validators[j], errorElement);
+            var elem = document.contactform[field];
+            errorElement = document.getElementById('error_' + field);
+            var hasNoError = showError(field, elem.value, validators[j], errorElement);
             if (!hasNoError) {
                 break;
             }
         }
-    }
 };
 
 /**
@@ -43,7 +38,7 @@ var fieldValidatorMapping = {
 * @param {html element} errorElement - It's the paragraph element to expose the errors.
 * @return {boolean} - It's true when there aren't erros and it's false when there are errors.
 */
-var fieldValidation = function(field, value, validator, errorElement) {
+var showError = function(field, value, validator, errorElement) {
     if (Array.isArray(validator)) {
         error = formValidator.showError(field, value, validator[0], validator[1]);
     }
@@ -63,7 +58,7 @@ var fieldValidation = function(field, value, validator, errorElement) {
 */
 document.getElementById('submit').addEventListener('click', function() {
     fields = ['name', 'email', 'telephone', 'subject', 'message'];
-    validate(fields);
+    fields.forEach(validateField)
 });
 
 /**
@@ -76,14 +71,14 @@ var formElems = document.contactform.elements;
 * it calls the validate function
 * @param {Element} event - The binded element.
 */
-var validateField = function(event) {
-    validate([this.name]);
+var onKeyUpValidate = function(event) {
+    validateField(this.name);
 };
 
 /**
 * This function runs the validation when the keys are pressed.
 */
 for (var i = 0; i < formElems.length; i++) {
+    formElems[i].addEventListener('keyup', onKeyUpValidate.bind(formElems[i]), false);
+};
 
-    formElems[i].addEventListener('keyup', validateField.bind(formElems[i]), false);
-}
