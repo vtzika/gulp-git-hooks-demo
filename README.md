@@ -1,9 +1,8 @@
 
-# Form Validator
+# Gulp Git Hooks Demo
 
-**Name:** Varvara Tzika & Maria Cristina Di Termine
+**Collaborators:** Varvara Tzika & Maria Cristina Di Termine
 
-**Date:** March 2015
 
 ----------------------------------------------------------------------
 This project is consisted of a generic contact form validator, a contact form to show the use of the validator, the jasmine unitests, a gulp build file with multiple tasks, a precommit hook file.
