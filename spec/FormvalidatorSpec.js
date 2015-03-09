@@ -129,16 +129,4 @@ describe ('Formvalidator contains', function() {
         });
 
     });
-
-    //Live validation
-    xdescribe ('Do the live validation', function() {
-        it ('should be true when the keys are pressed', function() {
-            var r = formValidator.liveValidation('field', 'keyPress');
-            expect(r).toBe(true);
-        });
-        it ('should be false when the keys are not pressed', function() {
-            var r = formValidator.liveValidation('field', !'keyPress');
-            expect(r).toBe(false);
-        });
-    });
 });
