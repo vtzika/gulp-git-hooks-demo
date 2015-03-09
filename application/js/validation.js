@@ -3,18 +3,18 @@
 * @param {array} fields - An array with all the form fields.
 */
 var validateField = function(field) {
-        var validators = fieldValidatorMapping[field];
-        if (!(field in fieldValidatorMapping)) {
-            return;
+    var validators = fieldValidatorMapping[field];
+    if (!(field in fieldValidatorMapping)) {
+        return;
+    }
+    for (var j = 0; j < validators.length; j++) {
+        var elem = document.contactform[field];
+        errorElement = document.getElementById('error_' + field);
+        var hasNoError = showError(field, elem.value, validators[j], errorElement);
+        if (!hasNoError) {
+            break;
         }
-        for (var j = 0; j < validators.length; j++) {
-            var elem = document.contactform[field];
-            errorElement = document.getElementById('error_' + field);
-            var hasNoError = showError(field, elem.value, validators[j], errorElement);
-            if (!hasNoError) {
-                break;
-            }
-        }
+    }
 };
 
 /**
@@ -58,7 +58,7 @@ var showError = function(field, value, validator, errorElement) {
 */
 document.getElementById('submit').addEventListener('click', function() {
     fields = ['name', 'email', 'telephone', 'subject', 'message'];
-    fields.forEach(validateField)
+    fields.forEach(validateField);
 });
 
 /**
@@ -80,5 +80,4 @@ var onKeyUpValidate = function(event) {
 */
 for (var i = 0; i < formElems.length; i++) {
     formElems[i].addEventListener('keyup', onKeyUpValidate.bind(formElems[i]), false);
-};
-
+}
