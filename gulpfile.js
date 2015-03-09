@@ -31,7 +31,7 @@ gulp.task('clean', function(cb) {
 // Scripts Tasks
 // Uglifies the js files and reloads the webserver
 gulp.task('scripts', function() {
-    gulp.src(['application/js/*.js'])
+    gulp.src(['application/js/contactFormValidation.js', 'build/js/formValidator.js'])
         .pipe(uglify())
         .on('error', function(err) {
             console.error('Error!', err.message);
@@ -72,7 +72,7 @@ gulp.task('jscs', function() {
 gulp.task('jsdoc', function() {
     gulp.src('application/**/*.js')
     .pipe(jsdoc.parser())
-    .pipe(gulp.dest('./jsdocs'));
+    .pipe(gulp.dest('jsdocs'));
 });
 
 // Styles Tasks
@@ -97,14 +97,14 @@ gulp.task('styles', function() {
 });
 
 gulp.task('stripTheTestCode', function() {
-    gulp.src(['application/**/*.js', 'gulpfile.js', 'spec/**/*.js'])
+    gulp.src(['application/js/formValidator.js'])
     .pipe(stripCode({
     //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         start_comment: '/* test-code */',
         end_comment: '/* end-test-code */'
     //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
     }))
-    .pipe(gulp.dest('build/file.txt'));
+    .pipe(gulp.dest('build/js/formValidator.js'));
 });
 
 // Image Task
