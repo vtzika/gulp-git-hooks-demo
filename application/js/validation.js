@@ -72,12 +72,14 @@ document.getElementById('submit').addEventListener('click', function() {
 */
 var formElems = document.contactform.elements;
 
+var validateField = function(event) {
+    validate([this.name]);
+};
+
 /**
 * This function runs the validation when the keys are pressed.
 */
 for (var i = 0; i < formElems.length; i++) {
 
-    formElems[i].addEventListener('keyup', function() {
-        validate([this.name]);
-    });
+    formElems[i].addEventListener('keyup', validateField.bind(formElems[i]), false);
 }
