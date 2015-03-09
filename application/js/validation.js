@@ -28,10 +28,11 @@ var validate = function(fields) {
 */
 var fieldValidatorMapping = {
         name: ['fieldIsNotEmpty'],
-        telephone: ['fieldIsNotEmpty', 'fieldIsNumber'],
-        email: ['fieldIsValidEmail'],
-        //subject: ['fieldIsNotEmpty'],
-        message: ['fieldIsNotEmpty']
+        telephone: ['fieldIsNotEmpty', 'fieldIsNumber', ['fieldHasMaxLen', 13], ['fieldHasMinLen', 8]],
+        email: ['fieldIsNotEmpty', 'fieldIsValidEmail'],
+        subject: ['fieldIsNotEmpty'],
+        message: ['fieldIsNotEmpty', ['fieldHasMaxLen', 200], ['fieldHasMinLen', 10]]
+
     };
 
 /**
@@ -43,7 +44,12 @@ var fieldValidatorMapping = {
 * @return {boolean} - It's true when there aren't erros and it's false when there are errors.
 */
 var fieldValidation = function(field, value, validator, errorElement) {
-    error = formValidator.showError(field, value, validator);
+    if (Array.isArray(validator)) {
+        error = formValidator.showError(field, value, validator[0], validator[1]);
+    }
+    else {
+        error = formValidator.showError(field, value, validator);
+    }
     errorElement.innerHTML = error;
 
     if (error === '') {
