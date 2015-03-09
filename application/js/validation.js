@@ -72,6 +72,10 @@ document.getElementById('submit').addEventListener('click', function() {
 */
 var formElems = document.contactform.elements;
 
+/**
+* it calls the validate function
+* @param {Element} event - The binded element.
+*/
 var validateField = function(event) {
     validate([this.name]);
 };
