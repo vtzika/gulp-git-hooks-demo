@@ -20,6 +20,7 @@ var jsdoc = require('gulp-jsdoc');
 var karma = require('gulp-karma');
 var mocha = require('gulp-mocha');
 var cover = require('gulp-coverage');
+var stripCode = require('gulp-strip-code');
 
 // Clean
 // Clean out the destination folders
@@ -95,6 +96,17 @@ gulp.task('styles', function() {
         }));
 });
 
+gulp.task('stripTheTestCode', function() {
+    gulp.src(['application/**/*.js', 'gulpfile.js', 'spec/**/*.js'])
+    .pipe(stripCode({
+    //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+        start_comment: '/* test-code */',
+        end_comment: '/* end-test-code */'
+    //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+    }))
+    .pipe(gulp.dest('build/file.txt'));
+});
+
 // Image Task
 // It compresses the images
 gulp.task('image', function() {
@@ -155,4 +167,4 @@ gulp.task('coverage', function() {
 gulp.task('precommit', ['lint', 'jscs', 'test']);
 
 // Default task
-gulp.task('default', ['clean', 'webserver', 'scripts', 'jscs', 'styles', 'image', 'watch', 'test']);
+gulp.task('default', ['clean', 'test', 'stripTheTestCode', 'scripts', 'jscs', 'styles', 'image', 'webserver', 'watch']);

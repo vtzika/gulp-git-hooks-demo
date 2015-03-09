@@ -119,13 +119,18 @@ var formValidator = (function() {
         fieldHasMaxLen: ' is too big.'
     };
 
-    return {
-        fieldIsNotEmpty: fieldIsNotEmpty,
-        fieldIsNumber: fieldIsNumber,
-        fieldIsValidEmail: fieldIsValidEmail,
-        fieldHasMinLen: fieldHasMinLen,
-        fieldHasMaxLen: fieldHasMaxLen,
+    var returnedValues = {
         showError: showError
     };
+
+    /* test-code */
+    returnedValues.fieldIsNotEmpty = fieldIsNotEmpty;
+    returnedValues.fieldIsNumber = fieldIsNumber;
+    returnedValues.fieldIsValidEmail = fieldIsValidEmail;
+    returnedValues.fieldHasMinLen = fieldHasMinLen;
+    returnedValues.fieldHasMaxLen = fieldHasMaxLen;
+    /* end-test-code */
+
+    return returnedValues;
 
 }());
