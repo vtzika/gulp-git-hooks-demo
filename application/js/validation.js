@@ -4,7 +4,13 @@
 */
 var validate = function(fields) {
     for (var i = 0; i < fields.length; i++) {
+        //console.log([1, 2, 3].indexOf(1));
+
+       // console.log(fieldValidatorMapping.indexOf('name'));
         var validators = fieldValidatorMapping[fields[i]];
+        if (!(fields[i] in fieldValidatorMapping)) {
+            continue;
+        }
         for (var j = 0; j < validators.length; j++) {
             var elem = document.contactform[fields[i]];
             errorElement = document.getElementById('error_' + fields[i]);
@@ -24,7 +30,7 @@ var fieldValidatorMapping = {
         name: ['fieldIsNotEmpty'],
         telephone: ['fieldIsNotEmpty', 'fieldIsNumber'],
         email: ['fieldIsValidEmail'],
-        subject: ['fieldIsNotEmpty'],
+        //subject: ['fieldIsNotEmpty'],
         message: ['fieldIsNotEmpty']
     };
 
